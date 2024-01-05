@@ -150,7 +150,7 @@ void ABasePawn::SelectSpellement(const FInputActionValue& Value)
 		UE_LOG(LogTemp, Display, TEXT("SELECTED FIRE"));
 		CurrentlySelectedElement = ESpellementType::Fire;
 	}
-	else if (result == 3)
+	else if (result == -2)
 	{
 		UE_LOG(LogTemp, Display, TEXT("SELECTED EARTH"));
 		CurrentlySelectedElement = ESpellementType::Earth;

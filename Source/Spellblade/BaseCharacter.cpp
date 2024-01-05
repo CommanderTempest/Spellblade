@@ -73,9 +73,9 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Look);
 		EnhancedInputComponent->BindAction(SpellementSelectAction, ETriggerEvent::Triggered, this, &ABaseCharacter::SelectSpellement);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Fire);
+		EnhancedInputComponent->BindAction(StrafeAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Strafe);
 	}
-
-	PlayerInputComponent->BindAxis(TEXT("Turn"), this, &ABaseCharacter::Turn);
+	
 
 }
 
@@ -102,14 +102,15 @@ void ABaseCharacter::Look(const FInputActionValue& Value)
 	}
 }
 
-void ABaseCharacter::Turn(float Value) {
+void ABaseCharacter::Strafe(const FInputActionValue& Value) {
 
-	AddControllerYawInput(Value);
+	const float DirectionValue = Value.Get<float>();
 
-	// FRotator DeltaRotation = FRotator::ZeroRotator;
-	// DeltaRotation.Yaw = Value * UGameplayStatics::GetWorldDeltaSeconds(this) * TurnRate;
-
-	// AddActorLocalRotation(DeltaRotation, true);
+	if (PlayerController && DirectionValue != 0.f)
+	{
+		FVector Left = GetActorRightVector();
+		AddMovementInput(Left, DirectionValue);
+	}
 }
 
 void ABaseCharacter::Fire()
@@ -145,6 +146,7 @@ void ABaseCharacter::Fire()
 void ABaseCharacter::SelectSpellement(const FInputActionValue& Value)
 {
 	const float result = Value.Get<float>();
+	UE_LOG(LogTemp, Display, TEXT("%f"), result);
 	if (result == 1)
 	{
 		CurrentlySelectedElement = ESpellementType::Wind;
@@ -158,7 +160,7 @@ void ABaseCharacter::SelectSpellement(const FInputActionValue& Value)
 		UE_LOG(LogTemp, Display, TEXT("SELECTED FIRE"));
 		CurrentlySelectedElement = ESpellementType::Fire;
 	}
-	else if (result == 3)
+	else if (result == -2)
 	{
 		UE_LOG(LogTemp, Display, TEXT("SELECTED EARTH"));
 		CurrentlySelectedElement = ESpellementType::Earth;

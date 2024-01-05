@@ -42,7 +42,7 @@ protected:
 	UInputAction* JumpAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
-	UInputAction* TurnAction;
+	UInputAction* StrafeAction;
 
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* LookAction;
@@ -56,7 +56,7 @@ protected:
 	void Fire(); 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
-	void Turn(float Value);
+	void Strafe(const FInputActionValue& Value);
 	void SelectSpellement(const FInputActionValue& Value);
 
 public:	
