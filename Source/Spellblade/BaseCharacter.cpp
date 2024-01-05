@@ -72,11 +72,9 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Look);
 		EnhancedInputComponent->BindAction(SpellementSelectAction, ETriggerEvent::Triggered, this, &ABaseCharacter::SelectSpellement);
-		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Fire);
+		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &ABaseCharacter::Fire);
 		EnhancedInputComponent->BindAction(StrafeAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Strafe);
 	}
-	
-
 }
 
 void ABaseCharacter::Move(const FInputActionValue& Value)
@@ -115,33 +113,29 @@ void ABaseCharacter::Strafe(const FInputActionValue& Value) {
 
 void ABaseCharacter::Fire()
 {
-	if (IsFiring == false)
-	{
-		IsFiring = true;
-		FVector ProjectileSpawnPointLocation = ProjectileSpawnPoint->GetComponentLocation();
-		FRotator ProjectileSpawnPointRotation = ProjectileSpawnPoint->GetComponentRotation();
+	FVector ProjectileSpawnPointLocation = ProjectileSpawnPoint->GetComponentLocation();
+	FRotator ProjectileSpawnPointRotation = ProjectileSpawnPoint->GetComponentRotation();
 
-		// DrawDebugSphere(
-		// 	GetWorld(),
-		// 	ProjectileSpawnPointLocation,
-		// 	25.f,
-		// 	12,
-		// 	FColor::Red,
-		// 	false,
-		// 	3.f
-		// );
-		
-		// ProjectileClass here is whatever Blueprint is set as the projectile on the BP of the character
-		if (ProjectileClass)
-		{
-			ASpellBase* Projectile = GetWorld()->SpawnActor<ASpellBase>(ProjectileClass, ProjectileSpawnPointLocation, ProjectileSpawnPointRotation);
-			Projectile->SetOwner(this);
-			Projectile->SetSpellementType(CurrentlySelectedElement);
-		}
-		else {UE_LOG(LogTemp, Error, TEXT("Projectile Class not set!"));}
+	// DrawDebugSphere(
+	// 	GetWorld(),
+	// 	ProjectileSpawnPointLocation,
+	// 	25.f,
+	// 	12,
+	// 	FColor::Red,
+	// 	false,
+	// 	3.f
+	// );
+	
+	// ProjectileClass here is whatever Blueprint is set as the projectile on the BP of the character
+	if (ProjectileClass)
+	{
+		ASpellBase* Projectile = GetWorld()->SpawnActor<ASpellBase>(ProjectileClass, ProjectileSpawnPointLocation, ProjectileSpawnPointRotation);
+		Projectile->SetOwner(this);
+		Projectile->SetSpellementType(CurrentlySelectedElement);
 	}
-	IsFiring = false;
+	else {UE_LOG(LogTemp, Error, TEXT("Projectile Class not set!"));}
 }
+
 
 void ABaseCharacter::SelectSpellement(const FInputActionValue& Value)
 {

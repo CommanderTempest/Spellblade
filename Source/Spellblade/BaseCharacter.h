@@ -95,9 +95,6 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 120.f;
 
-	// Debounce for fire
-	bool IsFiring = false;
-
 	APlayerController* PlayerController;
 
 };
