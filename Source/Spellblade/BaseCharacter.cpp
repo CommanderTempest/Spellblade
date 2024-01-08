@@ -115,6 +115,7 @@ void ABaseCharacter::Fire()
 {
 	FVector ProjectileSpawnPointLocation = ProjectileSpawnPoint->GetComponentLocation();
 	FRotator ProjectileSpawnPointRotation = ProjectileSpawnPoint->GetComponentRotation();
+	FRotator CameraRotation = Camera->GetComponentRotation();
 
 	// DrawDebugSphere(
 	// 	GetWorld(),
@@ -129,7 +130,7 @@ void ABaseCharacter::Fire()
 	// ProjectileClass here is whatever Blueprint is set as the projectile on the BP of the character
 	if (ProjectileClass)
 	{
-		ASpellBase* Projectile = GetWorld()->SpawnActor<ASpellBase>(ProjectileClass, ProjectileSpawnPointLocation, ProjectileSpawnPointRotation);
+		ASpellBase* Projectile = GetWorld()->SpawnActor<ASpellBase>(ProjectileClass, ProjectileSpawnPointLocation, CameraRotation);
 		Projectile->SetOwner(this);
 		Projectile->SetSpellementType(CurrentlySelectedElement);
 	}
