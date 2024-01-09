@@ -16,6 +16,15 @@ This is the character header file
 class UInputMappingContext;
 class UInputAction;
 
+UENUM()
+enum class ECastType
+{
+	Projectile UMETA(DisplayName = "Projectile"),
+	Wall UMETA(DisplayName = "Wall"), 
+	Field UMETA(DisplayName = "Field"), 
+	None UMETA(DisplayName="None")
+};
+
 UCLASS()
 class SPELLBLADE_API ABaseCharacter : public ACharacter
 {
@@ -67,6 +76,9 @@ public:
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 	APlayerController* GetPlayerController() const {return PlayerController;}
 
+	float GetMana() {return Mana;}
+	void SetMana(float CMana) {Mana=CMana;}
+
 private:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components", meta = (AllowPrivateAccess = "true"))
 	class UCapsuleComponent* CapsuleCom;
@@ -95,6 +107,15 @@ private:
 	UPROPERTY(EditAnywhere, Category = "Movement")
 	float TurnRate = 120.f;
 
+	UPROPERTY(VisibleAnywhere, Category = "Combat")
+	float MAX_MANA = 100;
+	
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	float Mana = MAX_MANA;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	ECastType CastType = ECastType::Projectile;
+	
 	APlayerController* PlayerController;
 
 };

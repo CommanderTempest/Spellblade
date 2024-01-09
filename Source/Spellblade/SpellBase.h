@@ -27,6 +27,8 @@ public:
 	bool GetIsHit() const {return IsHit;}
 	void SetIsHit(bool value) {IsHit = value;}
 
+	void FireSpell();
+
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -39,8 +41,6 @@ protected:
 
 	UPROPERTY(EditAnywhere, Category = "Combat")
 	ESpellementType Element;
-
-	void FireSpell();
 
 	void HandleCollision(ESpellementType otherActorElement);
 

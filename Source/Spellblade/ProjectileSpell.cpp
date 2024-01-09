@@ -29,11 +29,11 @@ void AProjectileSpell::BeginPlay()
     ProjectileMesh->OnComponentHit.AddDynamic(this, &AProjectileSpell::OnHit);
 }
 
-void AProjectileSpell::FireSpell()
+void AProjectileSpell::FireSpell(UWorld* World, AActor* Owner, UClass* ProjectileClass, FVector SpawnLocation, FRotator SpawnRotation, ESpellementType Element)
 {
-    Super::FireSpell();
-
-    
+    AProjectileSpell* Projectile = World->SpawnActor<AProjectileSpell>(ProjectileClass, SpawnLocation, SpawnRotation);
+    Projectile->SetOwner(Owner);
+    Projectile->SetSpellementType(Element);
 }
 
 void AProjectileSpell::Tick(float DeltaTime)

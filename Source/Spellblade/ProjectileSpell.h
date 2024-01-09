@@ -21,11 +21,10 @@ class SPELLBLADE_API AProjectileSpell : public ASpellBase
 	public:
 		AProjectileSpell();
 		virtual void Tick(float DeltaTime) override;
-	
+		static void FireSpell(UWorld* World, AActor* Owner, UClass* ProjectileClass, FVector SpawnLocation, FRotator SpawnRotation, ESpellementType Element);
+
 	protected:
 		virtual void BeginPlay() override;
-
-		virtual void FireSpell();
 
 		UPROPERTY(EditDefaultsOnly, Category = "Combat")
 		float ProjectileSpeed = 3000.f;
@@ -47,6 +46,5 @@ class SPELLBLADE_API AProjectileSpell : public ASpellBase
 
 		UFUNCTION()
 		void OnHit(UPrimitiveComponent* HitComp, AActor* otherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
-
 
 };

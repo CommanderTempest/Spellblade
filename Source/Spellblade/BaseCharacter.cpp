@@ -9,6 +9,7 @@
 #include "Components/InputComponent.h"
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include "ProjectileSpell.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -128,15 +129,17 @@ void ABaseCharacter::Fire()
 	// );
 	
 	// ProjectileClass here is whatever Blueprint is set as the projectile on the BP of the character
-	if (ProjectileClass)
+	if (CastType == ECastType::Projectile)
 	{
-		ASpellBase* Projectile = GetWorld()->SpawnActor<ASpellBase>(ProjectileClass, ProjectileSpawnPointLocation, CameraRotation);
-		Projectile->SetOwner(this);
-		Projectile->SetSpellementType(CurrentlySelectedElement);
+		AProjectileSpell::FireSpell(GetWorld(), GetOwner(), ProjectileClass, ProjectileSpawnPointLocation, CameraRotation, CurrentlySelectedElement);
 	}
-	else {UE_LOG(LogTemp, Error, TEXT("Projectile Class not set!"));}
+	else if (CastType == ECastType::Wall)
+	{
+		// Fire wall spell
+		//AWallSpell::FireSpell()
+	}
+	else {UE_LOG(LogTemp, Error, TEXT("Cast Type not set!"));}
 }
-
 
 void ABaseCharacter::SelectSpellement(const FInputActionValue& Value)
 {
