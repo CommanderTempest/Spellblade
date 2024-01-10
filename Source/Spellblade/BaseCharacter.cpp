@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "ProjectileSpell.h"
+#include "WallSpell.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -112,11 +113,15 @@ void ABaseCharacter::Strafe(const FInputActionValue& Value) {
 	}
 }
 
-void ABaseCharacter::Fire()
+void ABaseCharacter::Fire(const FInputActionValue& Value)
 {
 	FVector ProjectileSpawnPointLocation = ProjectileSpawnPoint->GetComponentLocation();
 	FRotator ProjectileSpawnPointRotation = ProjectileSpawnPoint->GetComponentRotation();
 	FRotator CameraRotation = Camera->GetComponentRotation();
+
+	const FVector InputValue = Value.Get<FVector>();
+	UE_LOG(LogTemp, Display, TEXT("Next is an FVector in BaseCharacter"));
+	UE_LOG(LogTemp, Display, TEXT("%s"), *InputValue.ToString());
 
 	// DrawDebugSphere(
 	// 	GetWorld(),
@@ -136,7 +141,12 @@ void ABaseCharacter::Fire()
 	else if (CastType == ECastType::Wall)
 	{
 		// Fire wall spell
-		//AWallSpell::FireSpell()
+
+		//FVector WallSpawnLocation;
+		//FRotator WallSpawnRotation;
+		
+		// TODO: Range checks in BaseCharacter
+		//AWallSpell::FireSpell(GetWorld(), GetOwner(), WallClass, WallSpawnLocation, WallSpawnRotation, CurrentlySelectedElement);
 	}
 	else {UE_LOG(LogTemp, Error, TEXT("Cast Type not set!"));}
 }

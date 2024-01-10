@@ -62,7 +62,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* SpellementSelectAction;
 
-	void Fire(); 
+	void Fire(const FInputActionValue& Value); 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void Strafe(const FInputActionValue& Value);
@@ -91,6 +91,9 @@ private:
 
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	TSubclassOf<class ASpellBase> ProjectileClass;
+
+	UPROPERTY(EditDefaultsOnly, Category = "Combat")
+	TSubclassOf<class AWallSpell> WallClass;
 
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	ESpellementType CurrentlySelectedElement = ESpellementType::Wind;
