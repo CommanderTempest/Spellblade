@@ -62,11 +62,15 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
 	UInputAction* SpellementSelectAction;
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "Input")
+	UInputAction* CastTypeAction;
+
 	void Fire(const FInputActionValue& Value); 
 	void Move(const FInputActionValue& Value);
 	void Look(const FInputActionValue& Value);
 	void Strafe(const FInputActionValue& Value);
 	void SelectSpellement(const FInputActionValue& Value);
+	void SelectCastType(const FInputActionValue& Value);
 
 public:	
 	// Called every frame

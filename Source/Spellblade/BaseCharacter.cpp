@@ -76,6 +76,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		EnhancedInputComponent->BindAction(SpellementSelectAction, ETriggerEvent::Triggered, this, &ABaseCharacter::SelectSpellement);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &ABaseCharacter::Fire);
 		EnhancedInputComponent->BindAction(StrafeAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Strafe);
+		EnhancedInputComponent->BindAction(CastTypeAction, ETriggerEvent::Started, this, &ABaseCharacter::SelectCastType);
 	}
 }
 
@@ -176,6 +177,26 @@ void ABaseCharacter::SelectSpellement(const FInputActionValue& Value)
 	else
 	{
 		UE_LOG(LogTemp, Error, TEXT("BasePawn.cpp: Could not find correct Spellement Type"));
+	}
+}
+
+void ABaseCharacter::SelectCastType(const FInputActionValue& Value)
+{
+	// need to add some UI to visibly show this
+	if (CastType == ECastType::Projectile)
+	{
+		CastType = ECastType::Wall;
+		UE_LOG(LogTemp, Display, TEXT("Switched cast-type to Wall Spell"));
+	}
+	else if (CastType == ECastType::Wall)
+	{
+		CastType = ECastType::Projectile;
+		UE_LOG(LogTemp, Display, TEXT("Switched cast-type to Projectile Spell"));
+	}
+	else if (CastType == ECastType::None)
+	{
+		CastType = ECastType::Projectile;
+		UE_LOG(LogTemp, Display, TEXT("Switched cast-type to Projectile Spell"));
 	}
 }
 
