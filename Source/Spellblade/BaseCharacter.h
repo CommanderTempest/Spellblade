@@ -120,6 +120,12 @@ private:
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	float Mana = MAX_MANA;
 
+	// The distance at which a player can spell cast and a wall will appear
+	float MAX_RANGE = 1000;
+
+	// The minimum distance the wall can be from the player
+	float MIN_RANGE = 100;
+
 	UPROPERTY(EditDefaultsOnly, Category = "Combat")
 	ECastType CastType = ECastType::Projectile;
 	

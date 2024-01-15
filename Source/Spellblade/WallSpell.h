@@ -29,12 +29,6 @@ class SPELLBLADE_API AWallSpell : public ASpellBase
 		void OnHit(UPrimitiveComponent* HitComp, AActor* otherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
 
 	private:
-		// The distance at which a player can spell cast and a wall will appear
-		float MAX_RANGE = 100;
-
-		// The minimum distance the wall can be from the player
-		float MIN_RANGE = 10;
-
 		// How long in seconds the wall will last for
 		float LifeDuration = 20;
 

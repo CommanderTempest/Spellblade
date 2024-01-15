@@ -2,6 +2,8 @@
 
 
 #include "BaseCharacter.h"
+
+#include "CollisionDebugDrawingPublic.h"
 #include "SpellBase.h"
 #include "Components/CapsuleComponent.h"
 #include "GameFramework/SpringArmComponent.h"
@@ -11,6 +13,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "ProjectileSpell.h"
 #include "WallSpell.h"
+#include "Evaluation/IMovieSceneEvaluationHook.h"
 #include "Kismet/GameplayStatics.h"
 
 // Sets default values
@@ -146,7 +149,17 @@ void ABaseCharacter::Fire(const FInputActionValue& Value)
 		//FVector WallSpawnLocation;
 		//FRotator WallSpawnRotation;
 		
-		// TODO: Range checks in BaseCharacter
+		// FOR EARTH/FIRE/WATER/ICE WALLS, YOU MAY BE ABLE TO MAKE A TRACE
+		// that runs vertically down to landscape (or first hit object)
+		
+		FVector WallSpawnLoc = GetActorLocation();
+		FHitResult HitResult;
+		if (PlayerController)
+		{
+			PlayerController->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, HitResult);
+			AWallSpell::FireSpell(GetWorld(), GetOwner(), WallClass, WallSpawnLoc, GetActorRotation(), CurrentlySelectedElement);
+		}
+		//UWorld::LineTraceSingleByChannel(Start, End, ECC_GameTraceChannel1);
 		//AWallSpell::FireSpell(GetWorld(), GetOwner(), WallClass, WallSpawnLocation, WallSpawnRotation, CurrentlySelectedElement);
 	}
 	else {UE_LOG(LogTemp, Error, TEXT("Cast Type not set!"));}
