@@ -152,15 +152,11 @@ void ABaseCharacter::Fire(const FInputActionValue& Value)
 		// FOR EARTH/FIRE/WATER/ICE WALLS, YOU MAY BE ABLE TO MAKE A TRACE
 		// that runs vertically down to landscape (or first hit object)
 		
-		FVector WallSpawnLoc = GetActorLocation();
-		FHitResult HitResult;
+		FVector WallSpawnLoc = GetActorLocation() + (GetActorForwardVector() * 200);
 		if (PlayerController)
 		{
-			PlayerController->GetHitResultUnderCursor(ECollisionChannel::ECC_Visibility, false, HitResult);
 			AWallSpell::FireSpell(GetWorld(), GetOwner(), WallClass, WallSpawnLoc, GetActorRotation(), CurrentlySelectedElement);
 		}
-		//UWorld::LineTraceSingleByChannel(Start, End, ECC_GameTraceChannel1);
-		//AWallSpell::FireSpell(GetWorld(), GetOwner(), WallClass, WallSpawnLocation, WallSpawnRotation, CurrentlySelectedElement);
 	}
 	else {UE_LOG(LogTemp, Error, TEXT("Cast Type not set!"));}
 }

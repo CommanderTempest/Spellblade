@@ -23,9 +23,10 @@ void AWallSpell::Tick(float DeltaTime)
 void AWallSpell::FireSpell(UWorld* World, AActor* Owner, UClass* WallClass, FVector SpawnLocation, FRotator SpawnRotation, ESpellementType Element)
 {
 	AWallSpell* Wall = World->SpawnActor<AWallSpell>(WallClass, SpawnLocation, SpawnRotation);
-	// TODO: IF WIND, CAN SPAWN IN MID-AIR
 	Wall->SetOwner(Owner);
 	Wall->SetSpellementType(Element);
+
+	// TODO: IF WIND, CAN SPAWN IN MID-AIR
 }
 
 void AWallSpell::OnHit(UPrimitiveComponent* HitComp, AActor* otherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
