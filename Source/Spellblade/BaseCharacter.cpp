@@ -76,7 +76,7 @@ void ABaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCompo
 		
 		EnhancedInputComponent->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Move);
 		EnhancedInputComponent->BindAction(LookAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Look);
-		EnhancedInputComponent->BindAction(SpellementSelectAction, ETriggerEvent::Triggered, this, &ABaseCharacter::SelectSpellement);
+		EnhancedInputComponent->BindAction(SpellementSelectAction, ETriggerEvent::Started, this, &ABaseCharacter::SelectSpellement);
 		EnhancedInputComponent->BindAction(FireAction, ETriggerEvent::Started, this, &ABaseCharacter::Fire);
 		EnhancedInputComponent->BindAction(StrafeAction, ETriggerEvent::Triggered, this, &ABaseCharacter::Strafe);
 		EnhancedInputComponent->BindAction(CastTypeAction, ETriggerEvent::Started, this, &ABaseCharacter::SelectCastType);
@@ -124,8 +124,6 @@ void ABaseCharacter::Fire(const FInputActionValue& Value)
 	FRotator CameraRotation = Camera->GetComponentRotation();
 
 	const FVector InputValue = Value.Get<FVector>();
-	UE_LOG(LogTemp, Display, TEXT("Next is an FVector in BaseCharacter"));
-	UE_LOG(LogTemp, Display, TEXT("%s"), *InputValue.ToString());
 
 	// DrawDebugSphere(
 	// 	GetWorld(),
@@ -148,9 +146,6 @@ void ABaseCharacter::Fire(const FInputActionValue& Value)
 
 		//FVector WallSpawnLocation;
 		//FRotator WallSpawnRotation;
-		
-		// FOR EARTH/FIRE/WATER/ICE WALLS, YOU MAY BE ABLE TO MAKE A TRACE
-		// that runs vertically down to landscape (or first hit object)
 
 		// Another idea might be for Scroll Wheel on walls to increase distance from player,
 		// at 0 distance could do a ramp?

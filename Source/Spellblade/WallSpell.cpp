@@ -25,7 +25,7 @@ void AWallSpell::FireSpell(UWorld* World, AActor* Owner, UClass* WallClass, FVec
 	AWallSpell* Wall = World->SpawnActor<AWallSpell>(WallClass, SpawnLocation, SpawnRotation);
 	Wall->SetOwner(Owner);
 	Wall->SetSpellementType(Element);
-
+	
 	// if not wind/none, the wall should be on the ground
 	if (Element != ESpellementType::Wind && Element != ESpellementType::None)
 	{
