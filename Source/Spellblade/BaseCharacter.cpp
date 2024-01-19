@@ -151,8 +151,11 @@ void ABaseCharacter::Fire(const FInputActionValue& Value)
 		
 		// FOR EARTH/FIRE/WATER/ICE WALLS, YOU MAY BE ABLE TO MAKE A TRACE
 		// that runs vertically down to landscape (or first hit object)
+
+		// Another idea might be for Scroll Wheel on walls to increase distance from player,
+		// at 0 distance could do a ramp?
 		
-		FVector WallSpawnLoc = GetActorLocation() + (GetActorForwardVector() * 200);
+		FVector WallSpawnLoc = GetActorLocation() + (GetActorForwardVector() * 300);
 		if (PlayerController)
 		{
 			AWallSpell::FireSpell(GetWorld(), GetOwner(), WallClass, WallSpawnLoc, GetActorRotation(), CurrentlySelectedElement);

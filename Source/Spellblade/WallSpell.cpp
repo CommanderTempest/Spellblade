@@ -26,7 +26,24 @@ void AWallSpell::FireSpell(UWorld* World, AActor* Owner, UClass* WallClass, FVec
 	Wall->SetOwner(Owner);
 	Wall->SetSpellementType(Element);
 
-	// TODO: IF WIND, CAN SPAWN IN MID-AIR
+	// if not wind/none, the wall should be on the ground
+	if (Element != ESpellementType::Wind && Element != ESpellementType::None)
+	{
+		FHitResult OutHit;
+		FVector StartLoc = Wall->GetActorLocation();
+		FVector EndLoc = (-(Wall->GetActorUpVector() * 500.f) + StartLoc);
+		
+		FCollisionQueryParams CollisionQueryParams;
+		CollisionQueryParams.AddIgnoredActor(Wall); //ignore self
+		
+		DrawDebugLine(World->GetWorld(), StartLoc, EndLoc, FColor::Green, false, 1000, 0, 5);
+		bool isHit = World->LineTraceSingleByChannel(OutHit, StartLoc, EndLoc, ECC_WorldStatic, CollisionQueryParams);
+		if (isHit)
+		{
+			UE_LOG(LogTemp, Display, TEXT("Hit object %s"), *OutHit.GetComponent()->GetName());
+			Wall->SetActorLocation(OutHit.ImpactPoint);
+		}
+	}
 }
 
 void AWallSpell::OnHit(UPrimitiveComponent* HitComp, AActor* otherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
