@@ -29,7 +29,7 @@ void AWallSpell::FireSpell(UWorld* World, AActor* Owner, UClass* WallClass, FVec
 	// if not wind/none, the wall should be on the ground
 	if (Element != ESpellementType::Wind && Element != ESpellementType::None)
 	{
-		FHitResult OutHit;
+		FHitResult OutHit; 
 		FVector StartLoc = Wall->GetActorLocation();
 		FVector EndLoc = (-(Wall->GetActorUpVector() * 500.f) + StartLoc);
 		

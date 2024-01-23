@@ -30,7 +30,7 @@ class SPELLBLADE_API AProjectileSpell : public ASpellBase
 		float ProjectileSpeed = 3000.f;
 		
 		UPROPERTY(EditDefaultsOnly, Category = "Combat")
-		float ProjectileDistance = 1300.f;
+		float ProjectileRange = 6000.f;
 
 		UPROPERTY(EditDefaultsOnly, Category = "Combat")
 		UStaticMeshComponent* ProjectileMesh;
@@ -40,6 +40,9 @@ class SPELLBLADE_API AProjectileSpell : public ASpellBase
 
 		UPROPERTY(EditAnywhere, Category = "Combat")
 		float Damage = 50.f;
+
+		// Initial spawn location, to be used for distance checking
+		FVector InitialLocation;
 
 		// UPROPERTY(EditDefaultsOnly, Category="Movement")
 		// class USphereComponent* SphereCollider;

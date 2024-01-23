@@ -9,7 +9,7 @@
 
 AProjectileSpell::AProjectileSpell()
 {
-    PrimaryActorTick.bCanEverTick = false;
+    PrimaryActorTick.bCanEverTick = true;
     ProjectileMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("Projectile Mesh"));
 	RootComponent = ProjectileMesh;
 
@@ -32,6 +32,7 @@ void AProjectileSpell::BeginPlay()
 void AProjectileSpell::FireSpell(UWorld* World, AActor* Owner, UClass* ProjectileClass, FVector SpawnLocation, FRotator SpawnRotation, ESpellementType Element)
 {
     AProjectileSpell* Projectile = World->SpawnActor<AProjectileSpell>(ProjectileClass, SpawnLocation, SpawnRotation);
+    Projectile->InitialLocation = SpawnLocation;
     Projectile->SetOwner(Owner);
     Projectile->SetSpellementType(Element);
 }
@@ -40,17 +41,11 @@ void AProjectileSpell::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
-    // float SpawnTime = 0.f;
-    //
-    // if (SpawnTime != 0.f)
-    // {
-    //     UE_LOG(LogTemp, Display, TEXT("%f"), DeltaTime);
-    // }
-    // else
-    // {
-    //     UE_LOG(LogTemp, Display, TEXT("%f"), DeltaTime);
-    //     SpawnTime = DeltaTime;
-    // }
+    double distance = FVector::Dist(this->GetActorLocation(), InitialLocation);
+    if (distance > ProjectileRange)
+    {
+        this->Destroy();
+    }
 
 }
 
