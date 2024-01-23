@@ -16,7 +16,6 @@ AProjectileSpell::AProjectileSpell()
     ProjectileMovementComponent = CreateDefaultSubobject<UProjectileMovementComponent>(TEXT("Projectile Movement"));
 	ProjectileMovementComponent->MaxSpeed = ProjectileSpeed;
 	ProjectileMovementComponent->InitialSpeed = ProjectileSpeed;
-
     // SphereCollider = CreateDefaultSubobject<USphereComponent>(TEXT("Sphere Collider"));
     // SphereCollider->SetupAttachment(ProjectileMesh);
 }
