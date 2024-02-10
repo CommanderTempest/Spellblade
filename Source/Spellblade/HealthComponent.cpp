@@ -33,7 +33,6 @@ void UHealthComponent::BeginPlay()
 void UHealthComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
 {
 	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
 	// ...
 }
 
@@ -44,6 +43,8 @@ void UHealthComponent::DamageTaken(AActor* DamagedActor, float Damage, const UDa
 	if (Health <= 0.f && SpellbladeGameMode)
 	{
 		//SpellbladeGameMode->ActorDied(DamagedActor);
+		
 		// kill the character
+		DamagedActor->Destroy();
 	}
 }
